@@ -39,16 +39,48 @@ int main(int argc, char const *argv[])
     }
 
 //====================================== LER O ARQUIVO ==============================================
-    std::string line;   
-    int count;  
-    std::vector<int> tam;
-    while ( obj >> count){
-        tam.push_back(count);
-    }   
-    int linhas = tam[0];
-    int colunas = tam[1];
-    assert (linhas == 15);
-    assert (colunas == 10);
+    std::string line;                   //!< Linha para a leitura
+    std::vector<std::string> arquivo;   //!< string com o conteudo do arquivo
+    std::vector<int> dimensoes;         //!< dimensões dos levels.
+    while (std::getline(obj, line))
+    {
+        arquivo.push_back(line);
+    }
+
+    for (auto i (0u); i < arquivo.size(); ++i)
+    {
+        if (arquivo[i][0]>='1' and arquivo[i][0]<='9')
+        {
+            std::string inteiro;
+            
+            for (auto j (0u); j < arquivo[i].size(); ++j)
+            {
+                if ( arquivo[i][j] != ' ')
+                {
+                    inteiro += arquivo[i][j];
+                }
+                else
+                {
+                    ////std::cout << inteiro;
+                    dimensoes.push_back( std::stoi(inteiro) );
+                    inteiro.clear();
+                }
+            }
+            dimensoes.push_back( std::stoi(inteiro) );
+        }
+    }
+    arquivo.erase(arquivo.begin());
+    int rm = 0;
+
+    for (auto i (0u); i < dimensoes.size()-2; i+=2)
+    {
+        rm+=+dimensoes[0];
+        arquivo.erase(arquivo.begin()+rm);
+    }
+    for (auto i (0u); i < arquivo.size(); ++i)
+    {
+        std::cout << arquivo[i] << std::endl;
+    }        
 
     return 0;
 }

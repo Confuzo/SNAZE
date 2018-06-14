@@ -14,6 +14,15 @@
 #include <string>
 #include "snake.h"
 
+enum Direction 
+{
+    cima = 0,
+    direita,
+    esquerda,
+    baixo
+};
+
+
 class Player
 {
     public:
