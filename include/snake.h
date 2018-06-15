@@ -15,8 +15,7 @@
 #include <iostream>
 #include <deque>
 
-struct Pos
-{
+struct Pos{
     size_t linha;
     size_t coluna;
 
@@ -37,28 +36,56 @@ struct Pos
     }
 };
 
+struct State{
+    enum code_t {
+      ALIVE = 0,
+      CRASH,
+      DEAD,
+      WIN
+    };
+    code_t status;
+    explicit State( code_t type_=ALIVE) : status{ type_ } {/* Empty */}
+    friend std::ostream & operator<<( std::ostream& os_, const State & s_ ){
+          os_ << s_.status;
+          return os_;
+        }
+};
+
 class Snake
 {
     public:
-        Snake();
-        ~Snake();
+      Snake(Pos p) : head("\u25CF"), score(0), lives(5), state(State::ALIVE) {
+        snk.push_back(p);
+      };
+      virtual ~Snake(){};
 
-        size_t size () const;
-        Pos get_pos_head ( void );
+        size_t size () const{
+          return snk.size();
+        }
+        Pos get_pos_head ( void ){
+          return snk.front();
+        }
         std::deque < Pos > get_snk( ) const;
 
         void set_simb_cab ( std::string cab );
 
         bool ocupado_snk( const Pos & pos );
 
-        void mover( Pos pos );
-        void comer( Pos pos );
+        void mover( Pos pos ){
+          snk.push_front(pos);
+          snk.pop_back();
+        }
+        void comer( Pos pos ){
+          snk.push_front(pos);
+        }
 
 
     private:
         std::deque<Pos>snk;         //!< Corpo completo da cobra
-        std::string snk_simb_cab;   //!< Simbolo que representa a cabeça da cobra
-
+        std::string head;           //!< Simbolo que representa a cabeça da cobra
+        int score;
+        int lives;
+        State state;
 };
 
 #endif

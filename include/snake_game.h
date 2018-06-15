@@ -10,7 +10,11 @@
 */
 
 #include <iostream>
-#include "snake.h"
+
+
+struct Direction{
+
+};
 
 class SnakeGame
 {
@@ -22,8 +26,8 @@ class SnakeGame
         game_over();
 
     private:
-        Level level; 
-        Snake snake;  
-        Player player; 
-        unsigned int qntd_levels; 
+        Level level;
+        Snake snake;
+        Player player;
+        unsigned int qntd_levels;
 }
