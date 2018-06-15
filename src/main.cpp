@@ -1,5 +1,5 @@
-#include <iostream> 
-#include <fstream>  
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <cstring>
 #include <vector>
@@ -10,32 +10,32 @@ int main(int argc, char const *argv[])
 {
 
 //================================ ABRIR O ARQUIVO ==============================================
-    std::string filename;/// arquivo de configuração. 
-    std::ifstream obj;      
-    if (argc == 1) /// Entra no laço no caso em que o usuário não informou nenhum arquivo de configuração de entrada.   
-    {       
-        std::ifstream obj;      
-        std::cout << ">>>>> Por favor digite um arquivo de configuração válido (Não utilize o síbolo '.'): ";       
-        std::cin >> filename;       
-        obj.open(filename);         
-        while (obj.is_open() == false) /// Entra no laço caso o arquivo de configuração passado não exista.         
-        {           
-            std::cout << ">>>>> Por favor digite um arquivo de configuração válido (Não utilize o síbolo '.')(CTRL+C para sair): ";             
-            std::cin >> filename;           
-            obj.open(filename);         
-        }       
-        //obj.close();    
+    std::string filename;/// arquivo de configuração.
+    std::ifstream obj;
+    if (argc == 1) /// Entra no laço no caso em que o usuário não informou nenhum arquivo de configuração de entrada.
+    {
+        std::ifstream obj;
+        std::cout << ">>>>> Por favor digite um arquivo de configuração válido (Não utilize o síbolo '.'): ";
+        std::cin >> filename;
+        obj.open(filename);
+        while (obj.is_open() == false) /// Entra no laço caso o arquivo de configuração passado não exista.
+        {
+            std::cout << ">>>>> Por favor digite um arquivo de configuração válido (Não utilize o síbolo '.')(CTRL+C para sair): ";
+            std::cin >> filename;
+            obj.open(filename);
+        }
+        //obj.close();
     }
-    else /// Entra no laço no caso em que o usuário informou o arquivo de configuração de entrada.    
-    {       
-        filename = argv[1];    
-        obj.open(argv[1]);      
-        while (obj.is_open() == false) /// Entra no laço caso o arquivo de configuração passado não exista.         
-        {           
-            std::cout << ">>>>> Por favor digite um arquivo de configuração válido (Não utilize o síbolo '.')(CTRL+C para sair): ";             
-            std::cin >> filename;           
-            obj.open(filename);         
-        }       
+    else /// Entra no laço no caso em que o usuário informou o arquivo de configuração de entrada.
+    {
+        filename = argv[1];
+        obj.open(argv[1]);
+        while (obj.is_open() == false) /// Entra no laço caso o arquivo de configuração passado não exista.
+        {
+            std::cout << ">>>>> Por favor digite um arquivo de configuração válido (Não utilize o síbolo '.')(CTRL+C para sair): ";
+            std::cin >> filename;
+            obj.open(filename);
+        }
         //obj.close();
     }
 
@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
         if (arquivo[i][0]>='1' and arquivo[i][0]<='9')
         {
             std::string inteiro;
-            
+
             for (auto j (0u); j < arquivo[i].size(); ++j)
             {
                 if ( arquivo[i][j] != ' ')

@@ -11,11 +11,6 @@
 
 #include <iostream>
 
-
-struct Direction{
-
-};
-
 class SnakeGame
 {
     public:

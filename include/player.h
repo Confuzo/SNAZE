@@ -14,13 +14,9 @@
 #include <string>
 #include "snake.h"
 
-enum Direction 
-{
-    cima = 0,
-    direita,
-    esquerda,
-    baixo
-};
+struct Direction{
+  
+}
 
 
 class Player
@@ -32,5 +28,5 @@ class Player
         Direction next_move();
 
     private:
-        
+
 }

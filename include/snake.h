@@ -34,6 +34,10 @@ struct Pos{
         coluna = rhs.coluna;
         return *(this);
     }
+    friend std::ostream & operator<<( std::ostream& os_, const Pos & p_ ){
+          os_ << p_.linha << " " << p_.coluna;
+          return os_;
+        }
 };
 
 struct State{
@@ -69,7 +73,18 @@ class Snake
 
         void set_simb_cab ( std::string cab );
 
-        bool ocupado_snk( const Pos & pos );
+        //Verifica se para a cobra ocupa uma determinada posição
+        bool ocupado_snk( const Pos & pos ){
+          auto begin = snk.begin();
+          auto end = snk.end();
+          while(begin != end){
+            if(*begin == pos){
+              return true;
+            }
+            begin++;
+          }
+          return false;
+        }
 
         void mover( Pos pos ){
           snk.push_front(pos);
@@ -84,8 +99,8 @@ class Snake
         std::deque<Pos>snk;         //!< Corpo completo da cobra
         std::string head;           //!< Simbolo que representa a cabeça da cobra
         int score;
-        int lives;
-        State state;
+        int lives;                  //!< Número de Vidas da cobra
+        State state;                //Estado atual da cobra
 };
 
 #endif
