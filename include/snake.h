@@ -20,12 +20,12 @@ struct Pos
     size_t linha;
     size_t coluna;
 
-    Pos(size_t l = 0, size_t c = 0) : linha = l, coluna = c;
+    Pos(size_t l = 0, size_t c = 0) : linha (l), coluna (c){};
     bool operator== ( const Pos & rhs )
     {
         return linha == rhs.linha and coluna == rhs.coluna;
     }
-    bool operator== ( const Pos & rhs )
+    bool operator!= ( const Pos & rhs )
     {
         return linha != rhs.linha or coluna != rhs.coluna;
     }

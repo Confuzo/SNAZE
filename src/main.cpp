@@ -4,6 +4,7 @@
 #include <cstring>
 #include <vector>
 #include <cassert>
+#include "level.h"
 
 int main(int argc, char const *argv[])
 {
@@ -77,10 +78,17 @@ int main(int argc, char const *argv[])
         rm+=+dimensoes[0];
         arquivo.erase(arquivo.begin()+rm);
     }
+    /*
     for (auto i (0u); i < arquivo.size(); ++i)
     {
         std::cout << arquivo[i] << std::endl;
-    }        
+    }*/
+
+    //Level l( );
+    char cab = '*';
+    Level l( arquivo, dimensoes, cab);
+    l.print();
+
 
     return 0;
 }
