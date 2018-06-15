@@ -12,6 +12,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 #include "snake.h"
 
 class Level
@@ -55,6 +57,7 @@ class Level
                 levels.push_back (l_d);
                 ++qtd_levels;
             }
+            gerar_maca();
         };
         void load( std::vector<std::string> mapa, std::vector<int> dimensoes, char cab)
         {
@@ -81,15 +84,55 @@ class Level
                 levels.push_back (l_d);
                 ++qtd_levels;
             }
+            gerar_maca();
         };
         void print()
         {
-            for (auto i (0u); i < levels.size(); ++i)
+            int aux = 0;
+            for (auto i (atual_level-1); i < qtd_levels; ++i)
             {
                 std::cout << "Level "<< i+1 << std::endl;
-                levels[i].print();
+                levels[aux].print();
+                ++aux;
             }
         };
+        void print_atual()
+        {
+            std::cout << "Level "<< atual_level << std::endl;
+            levels[0].print();
+        };
+        void prox_lvl()
+        {
+            ++atual_level;
+            levels.erase( levels.begin() );
+            gerar_maca();
+        }
+        void gerar_maca()
+        {
+            bool block = true;
+            size_t linha;
+            size_t coluna;
+            while (block == true)
+            {
+                linha = rand()%(levels[0].qntd_linhas - 1) + 0;
+                coluna = rand()%(levels[0].qntd_colunas - 1) + 0;
+                block = bloqueado(linha, coluna);
+            }
+            maca.linha = linha;
+            maca.coluna = coluna;
+            levels[0].tab_lvl[linha][coluna] = 'M';
+        }
+        bool bloqueado(size_t linha, size_t coluna)
+        {
+            if (levels[0].tab_lvl[linha][coluna] == '#' or levels[0].tab_lvl[linha][coluna] == '*'
+                or levels[0].tab_lvl[linha][coluna] == '.' )
+                return true;
+            return false;
+        }
+        Pos get_pos_maca()
+        {
+            return maca;
+        }
 
     private:
         struct level_data

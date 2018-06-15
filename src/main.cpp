@@ -87,7 +87,14 @@ int main(int argc, char const *argv[])
     //Level l( );
     char cab = '*';
     Level l( arquivo, dimensoes, cab);
-    l.print();
+    l.print_atual();
+    l.prox_lvl();
+    l.print_atual();
+    l.prox_lvl();
+    l.print_atual();
+    l.prox_lvl();
+    l.print_atual();
+    //l.print();
 
 
     return 0;
