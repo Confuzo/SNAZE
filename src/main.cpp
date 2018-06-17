@@ -5,6 +5,7 @@
 #include <vector>
 #include <cassert>
 #include "level.h"
+#include "player.h"
 
 int main(int argc, char const *argv[])
 {
