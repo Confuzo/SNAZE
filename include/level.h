@@ -134,6 +134,15 @@ class Level
             return maca;
         }
 
+        bool eh_maca(Pos pos){
+
+          return pos == maca;
+        }
+
+        bool is_marked(Pos pos){
+
+        }
+
     private:
         struct level_data
         {
