@@ -134,12 +134,16 @@ class Level
             return maca;
         }
 
-        bool eh_maca(Pos pos){
+        bool is_maca(Pos pos){
 
           return pos == maca;
         }
 
         bool is_marked(Pos pos){
+
+        }
+
+        void mark_cell(Pos pos){
 
         }
 

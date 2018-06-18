@@ -29,7 +29,7 @@ class Player
         Player();
         ~Player( ) = default;
         bool find_solution(Level lvl, Pos initial_pos){
-          if(lvl.eh_maca(initial_pos)) return true;
+          if(lvl.is_maca(initial_pos)) return true;
           if(lvl.is_marked(initial_pos)) return false;
           lvl.mark_cell(initial_pos);
           for(Direction d : {Direction::NORTH, Direction::EAST, Direction::SOUTH, Direction::WEST}){

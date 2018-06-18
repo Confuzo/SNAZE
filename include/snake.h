@@ -92,8 +92,13 @@ class Snake
         }
         void comer( Pos pos ){
           snk.push_front(pos);
+          score += 100;
         }
 
+        void clear(){
+          snk.clear();
+          lives = 5;
+        }
 
     private:
         std::deque<Pos>snk;         //!< Corpo completo da cobra
