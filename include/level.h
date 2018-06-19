@@ -187,11 +187,18 @@ class Level
         }
 
         bool is_marked(Pos pos){
-
+            for (auto i(0u); i < marks.size(); ++i)
+            {
+                if (marks[i] == pos)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         void mark_cell(Pos pos){
-
+            marks.push_back(pos);
         }
 
         /*
@@ -251,5 +258,6 @@ class Level
         unsigned short int atual_level;
         unsigned short int qtd_levels;
         Pos maca;
+        std::vector<Pos> marks;
 
 };
