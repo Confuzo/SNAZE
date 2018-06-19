@@ -20,6 +20,12 @@ class Level
 {
     public:
         Level( );
+
+        /*
+         *
+         * @brief Contrutor para a criação da classe level quando é passado uma string, as dimeções da tabela e o caracter ca cabeça
+         *
+        */
         Level( std::vector<std::string> mapa, std::vector<int> dimensoes, char cab )
         {
             atual_level = 1;
@@ -47,7 +53,7 @@ class Level
                         {
                             //std::cout << i << j<< std::endl;
                             l_d.snk_cab.linha = i;
-                            l_d.snk_cab.linha = j;
+                            l_d.snk_cab.coluna = j;
                             l_d.tab_lvl[i][j] = ' ';
                         }
                     }
@@ -60,6 +66,7 @@ class Level
             }
             gerar_maca();
         };
+
         void load( std::vector<std::string> mapa, std::vector<int> dimensoes, char cab)
         {
             atual_level = 1;
@@ -79,6 +86,19 @@ class Level
                 std::vector<std::string>::const_iterator f = mapa.begin() + fim;
                 std::vector<std::string> aux(i,f);
                 l_d.tab_lvl = aux;
+                for( auto i( 0u ); i < l_d.qntd_linhas; ++i)
+                {
+                    for(auto j(0u); j< l_d.qntd_colunas; ++j)
+                    {
+                        if (aux[i][j] == cab)
+                        {
+                            //std::cout << i << j<< std::endl;
+                            l_d.snk_cab.linha = i;
+                            l_d.snk_cab.coluna = j;
+                            l_d.tab_lvl[i][j] = ' ';
+                        }
+                    }
+                }
 
                 ini = fim;
 
@@ -125,19 +145,45 @@ class Level
         }
         bool bloqueado(size_t linha, size_t coluna)
         {
+            Pos snake(linha, coluna);
             if (levels[0].tab_lvl[linha][coluna] == '#' or levels[0].tab_lvl[linha][coluna] == '*'
                 or levels[0].tab_lvl[linha][coluna] == '.' )
                 return true;
             return false;
         }
+
+        /*
+         *
+         * @brief Método para obter a posição atual da maça
+         * @return Retorna a posição atual da maça
+         *
+        */
         Pos get_pos_maca()
         {
             return maca;
         }
 
+        /*
+         *
+         * @brief Método para verificar se uma posição é a maça
+         * @return Retorna true quando a posição a ser verificada correponde a posição da maçã
+         * @param pos é a posição a ser verificada
+         *
+        */
         bool is_maca(Pos pos){
 
           return pos == maca;
+        }
+
+        /*
+         *
+         * @brief Método para obter a posição inicial da cabeça
+         * @return Retorna a posição inicial da cabeça do level atual
+         *
+        */
+        Pos get_pos_cab()
+        {
+            return levels[0].snk_cab;
         }
 
         bool is_marked(Pos pos){
@@ -148,13 +194,36 @@ class Level
 
         }
 
+        /*
+         *
+         * @brief Método para obter quantidade de maçãs restantes no level atual
+         * @return Retorna a quantidade de maçãs restantes
+         *
+        */
+        unsigned int qntd_macas_restates ( void )
+        {
+            return levels[0].qntd_macas;
+        }
+
+        /*
+         *
+         * @brief Método para obter decrementar a quantidade de maçãs restantes no level atual
+         * @return Não possui retorno
+         *
+        */
+        void dec_macas ( void )
+        {
+            levels[0].qntd_macas -= 1;
+        }
+
+
     private:
         struct level_data
         {
             size_t qntd_linhas;
             size_t qntd_colunas;
             Pos snk_cab;
-            int qntd_macas;
+            unsigned int qntd_macas;
             //char **tab_lvl;
             std::vector<std::string> tab_lvl;
 
@@ -164,7 +233,17 @@ class Level
             {
                 for (auto i (0u); i < qntd_linhas; ++i)
                 {
-                    std::cout << tab_lvl[i] << std::endl;
+                    //std::cout << tab_lvl[i] << std::endl;
+                    for (auto j (0u); j < qntd_colunas; ++j)
+                    {
+                        if (tab_lvl[i][j] == '.')
+                        {
+                            std::cout << ' ';
+                        }
+                        else
+                            std::cout << tab_lvl[i][j];
+                    }
+                    std::cout << std::endl;
                 }
             };
         };

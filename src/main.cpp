@@ -95,11 +95,11 @@ int main(int argc, char const *argv[])
     l.print_atual();
     l.prox_lvl();
     l.print_atual();
-    Snake a(Pos(1,1));
+    Snake a(l.get_pos_cab());
     auto aux = a.get_snk();
     for(auto it = aux.begin(); it != aux.end();it++){
-      Pos &b = *it;
-      std::cout << b << "\n";
+        Pos &b = *it;
+        std::cout << b << "\n";
     }
     //l.print();
 
