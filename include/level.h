@@ -48,6 +48,7 @@ class Level
                             //std::cout << i << j<< std::endl;
                             l_d.snk_cab.linha = i;
                             l_d.snk_cab.linha = j;
+                            l_d.tab_lvl[i][j] = ' ';
                         }
                     }
                 }
@@ -120,7 +121,7 @@ class Level
             }
             maca.linha = linha;
             maca.coluna = coluna;
-            levels[0].tab_lvl[linha][coluna] = 'M';
+//            levels[0].tab_lvl[linha][coluna] = 'M';
         }
         bool bloqueado(size_t linha, size_t coluna)
         {
