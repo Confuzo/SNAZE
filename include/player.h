@@ -28,7 +28,7 @@ class Player
     public:
         Player();
         ~Player( ) = default;
-        bool find_solution(Level lvl, Pos initial_pos){
+        /*bool find_solution(Level lvl, Pos initial_pos){
           if(lvl.is_maca(initial_pos)) return true;
           if(lvl.is_marked(initial_pos)) return false;
           lvl.mark_cell(initial_pos);
@@ -39,7 +39,7 @@ class Player
                 return true;
           }
           return false;
-        }
+        }*/
         Pos next_move( Direction& dir);
 
     private:

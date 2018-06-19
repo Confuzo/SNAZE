@@ -95,6 +95,12 @@ int main(int argc, char const *argv[])
     l.print_atual();
     l.prox_lvl();
     l.print_atual();
+    Snake a(Pos(1,1));
+    auto aux = a.get_snk();
+    for(auto it = aux.begin(); it != aux.end();it++){
+      Pos &b = *it;
+      std::cout << b << "\n";
+    }
     //l.print();
 
 

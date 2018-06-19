@@ -69,7 +69,9 @@ class Snake
         Pos get_pos_head ( void ){
           return snk.front();
         }
-        std::deque < Pos > get_snk( ) const;
+        std::deque < Pos > get_snk( ) const{
+          return snk;
+        }
 
         void set_simb_cab ( std::string cab );
 
