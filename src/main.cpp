@@ -101,6 +101,10 @@ int main(int argc, char const *argv[])
         Pos &b = *it;
         std::cout << b << "\n";
     }
+    Player p(a);
+    p.find_solution(l, a.get_pos_head(), a);
+    p.print_path();
+    std::cout << "\n "<< l.get_pos_maca()<< "\n";
     //l.print();
 
 

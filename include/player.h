@@ -26,23 +26,59 @@ enum class Direction{
 class Player
 {
     public:
-        Player();
+        Player(Snake aux): snk_aux(aux){};
         ~Player( ) = default;
-        /*bool find_solution(Level lvl, Pos initial_pos){
-          if(lvl.is_maca(initial_pos)) return true;
+        bool find_solution(Level lvl, Pos initial_pos, Snake snk){
+          if(lvl.is_maca(initial_pos)){
+            path.push_front(initial_pos);
+            return true;
+          }
           if(lvl.is_marked(initial_pos)) return false;
           lvl.mark_cell(initial_pos);
           for(Direction d : {Direction::NORTH, Direction::EAST, Direction::SOUTH, Direction::WEST}){
             //here i must implement something to transform directions at positions
-            if(not lvl.bloqueado())
-              if(find_solution(lvl, next_move(d)))
-                return true;
+            Pos aux = next_move(d, initial_pos);
+            if(not lvl.bloqueado(aux.linha, aux.coluna) and (not snk.ocupado_snk(aux))){
+              auto image = snk;
+              image.mover(aux);
+              if(find_solution(lvl, aux, image)){
+                    path.push_front(initial_pos);
+                    return true;
+              }
+            }
           }
           return false;
-        }*/
-        Pos next_move( Direction& dir);
+        }
+        Pos next_move( Direction& dir, Pos& pos){
+          auto i = pos.linha;
+          auto j = pos.coluna;
+          switch (dir) {
+            case Direction::NORTH:
+              i--;
+            break;
+            case Direction::EAST:
+              j++;
+            break;
+            case Direction::SOUTH:
+              i++;
+            break;
+            case Direction::WEST:
+              j--;
+            break;
+          }
+          return Pos(i,j);
+        }
 
+        void print_path(){
+          auto ini = path.begin();
+          auto end = path.end();
+          while(ini != end){
+            std::cout << "(" << *ini << ") ";
+            ini++;
+          }
+        }
     private:
-    std::vector<Direction> path;
+    std::deque<Pos> path;
+    Snake snk_aux;
 
 };

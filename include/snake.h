@@ -62,7 +62,17 @@ class Snake
         snk.push_back(p);
       };
       virtual ~Snake(){};
+      Snake();
 
+      /*Snake operator =(const Snake & s){
+        Snake snk;
+        snk.snk = s.snk;
+        snk.head = s.head;
+        snk.score = s.score;
+        snk.state = s.state;
+
+        return snk;
+      }*/
         size_t size () const{
           return snk.size();
         }
