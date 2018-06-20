@@ -90,7 +90,9 @@ int main(int argc, char const *argv[])
     //Level l( );
     char cab = '*';
     SnakeGame snk_game(arquivo, dimensoes, cab);
-    snk_game.update();
+    while(not snk_game.game_over()){
+        snk_game.update();
+    }
     //snk_game.initialize_game ( arquivo, dimensoes, cab );
 
     /*
@@ -120,8 +122,8 @@ int main(int argc, char const *argv[])
     {
         if (*first != l.get_pos_maca())
         {
-            a.mover(*first);            
-        }        
+            a.mover(*first);
+        }
         else
             a.comer(*first);
         for (auto i(0u); i<l.get_linhas() ;++i)
@@ -184,7 +186,7 @@ int main(int argc, char const *argv[])
         {
             if (*first != l.get_pos_maca())
             {
-                a.mover(*first);            
+                a.mover(*first);
             }
             else
                 a.comer(*first);
