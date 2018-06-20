@@ -112,6 +112,17 @@ class Snake
           lives = 5;
         }
 
+        void print ()
+        {
+
+            auto begin = snk.begin();
+            auto end = snk.end();
+            while(begin != end){
+                std::cout << begin->linha << begin->coluna << ".";
+                begin++;
+            }
+        }
+
     private:
         std::deque<Pos>snk;         //!< Corpo completo da cobra
         std::string head;           //!< Simbolo que representa a cabeça da cobra

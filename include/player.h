@@ -30,22 +30,22 @@ class Player
         ~Player( ) = default;
         bool find_solution(Level lvl, Pos initial_pos, Snake snk){
           if(lvl.is_maca(initial_pos)){
-            path.push_front(initial_pos);
-            return true;
+              path.push_front(initial_pos);
+              return true;
           }
           if(lvl.is_marked(initial_pos)) return false;
           lvl.mark_cell(initial_pos);
           for(Direction d : {Direction::NORTH, Direction::EAST, Direction::SOUTH, Direction::WEST}){
-            //here i must implement something to transform directions at positions
-            Pos aux = next_move(d, initial_pos);
-            if(not lvl.bloqueado(aux.linha, aux.coluna) and (not snk.ocupado_snk(aux))){
-              auto image = snk;
-              image.mover(aux);
+              //here i must implement something to transform directions at positions
+              Pos aux = next_move(d, initial_pos);
+              if(not lvl.bloqueado(aux.linha, aux.coluna) and (not snk.ocupado_snk(aux))){
+                  auto image = snk;
+                  image.mover(aux);
               if(find_solution(lvl, aux, image)){
-                    path.push_front(initial_pos);
-                    return true;
+                  path.push_front(initial_pos);
+                  return true;
               }
-            }
+          }
           }
           return false;
         }
@@ -76,6 +76,10 @@ class Player
             std::cout << "(" << *ini << ") ";
             ini++;
           }
+        }
+        std::deque<Pos> get_path()
+        {
+          return path;
         }
     private:
     std::deque<Pos> path;

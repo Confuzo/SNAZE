@@ -6,6 +6,7 @@
 #include <cassert>
 #include "level.h"
 #include "player.h"
+#include <unistd.h>
 
 int main(int argc, char const *argv[])
 {
@@ -102,9 +103,113 @@ int main(int argc, char const *argv[])
         std::cout << b << "\n";
     }
     Player p(a);
-    p.find_solution(l, a.get_pos_head(), a);
+
+    bool sol = p.find_solution(l, a.get_pos_head(), a);
     p.print_path();
+    auto path = p.get_path();
     std::cout << "\n "<< l.get_pos_maca()<< "\n";
+
+    auto tabela (l.get_tabela());
+    for (auto first (path.begin()) ; first < path.end(); ++first)
+    {
+        if (*first != l.get_pos_maca())
+        {
+            a.mover(*first);            
+        }        
+        else
+            a.comer(*first);
+        for (auto i(0u); i<l.get_linhas() ;++i)
+        {
+            for (auto j(0u); j<l.get_colunas() ;++j)
+                {
+                    Pos p_aux(i,j) ;
+                    if (a.ocupado_snk(p_aux) == true)
+                    {
+                        std::cout << '*';
+                    }
+                    else if (l.is_maca(p_aux))
+                    {
+                        std::cout << 'F';
+                    }
+                    else
+                        std::cout << tabela[i][j];
+                }
+                std::cout << std::endl;
+        }
+        usleep(100000u);
+    }
+    l.dec_macas();
+    //a.print();
+
+
+
+
+        std::cout << "QUANTIDADE DE MAÇÃS: "<< l.qntd_macas_restates()<< std::endl;
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    while (l.qntd_macas_restates() > 0)
+    {
+        a.print();
+        std::cout << "QUANTIDADE DE MAÇÃS: "<< l.qntd_macas_restates()<< std::endl;
+        usleep(100000u);
+
+        l.set_pos_cab( l.get_pos_maca() );
+        l.gerar_maca(a);
+
+        //Snake a(l.get_pos_cab());
+        auto aux1 = a.get_snk();
+        for(auto it = aux1.begin(); it != aux1.end();it++){
+            Pos &b = *it;
+            std::cout << b << "\n";
+        }
+
+        Player p2(a);
+
+        bool sol2 = p2.find_solution(l, a.get_pos_head(), a);
+        std::cout << sol2;
+        p2.print_path();
+        auto path2 = p2.get_path();
+        path2.pop_front();
+        std::cout << "\n "<< l.get_pos_maca()<< "\n";
+
+        auto tabela1 (l.get_tabela());
+        for (auto first (path2.begin()) ; first < path2.end(); ++first)
+        {
+            if (*first != l.get_pos_maca())
+            {
+                a.mover(*first);            
+            }
+            else
+                a.comer(*first);
+            for (auto i(0u); i<l.get_linhas() ;++i)
+            {
+                for (auto j(0u); j<l.get_colunas() ;++j)
+                    {
+                        Pos p_aux(i,j) ;
+                        if (a.ocupado_snk(p_aux) == true)
+                        {
+                            std::cout << '*';
+                        }
+                        else if (l.is_maca(p_aux))
+                        {
+                            std::cout << 'F';
+                        }
+                        else
+                            std::cout << tabela1[i][j];
+                    }
+                    std::cout << std::endl;
+            }
+            usleep(100000u);
+        }
+        l.dec_macas();
+
+    }
+    std::cout << "COBRA VENCEDORA";
+
+    /////////////////////////////////////////////////////////////////////
+
+
     //l.print();
 
 

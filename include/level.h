@@ -143,6 +143,22 @@ class Level
             maca.coluna = coluna;
 //            levels[0].tab_lvl[linha][coluna] = 'M';
         }
+        void gerar_maca(Snake snk)
+        {
+            bool block = true;
+            size_t linha;
+            size_t coluna;
+            while (block == true)
+            {
+                linha = rand()%(levels[0].qntd_linhas - 1) + 0;
+                coluna = rand()%(levels[0].qntd_colunas - 1) + 0;
+                Pos aux (linha, coluna);
+                block = bloqueado(linha, coluna) or snk.ocupado_snk(aux);
+            }
+            maca.linha = linha;
+            maca.coluna = coluna;
+//            levels[0].tab_lvl[linha][coluna] = 'M';
+        }
         bool bloqueado(size_t linha, size_t coluna)
         {
             Pos snake(linha, coluna);
@@ -161,6 +177,11 @@ class Level
         Pos get_pos_maca()
         {
             return maca;
+        }
+
+        void set_pos_cab(Pos pos)
+        {
+            levels[0].snk_cab = pos;
         }
 
         /*
@@ -221,6 +242,19 @@ class Level
         void dec_macas ( void )
         {
             levels[0].qntd_macas -= 1;
+        }
+
+        size_t get_linhas()
+        {
+            return levels[0].qntd_linhas;
+        }
+        size_t get_colunas()
+        {
+            return levels[0].qntd_colunas;
+        }
+        std::vector<std::string> get_tabela()
+        {
+            return levels[0].tab_lvl;
         }
 
 
