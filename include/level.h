@@ -19,7 +19,14 @@
 class Level
 {
     public:
-        Level( );
+        Level( )
+        {
+            levels = std::vector<level_data>(0);
+            atual_level = 0;
+            qtd_levels = 0;
+            maca = Pos(0,0);
+            marks = std::vector<Pos> (0);
+        }
 
         /*
          *
@@ -255,6 +262,10 @@ class Level
         std::vector<std::string> get_tabela()
         {
             return levels[0].tab_lvl;
+        }
+        size_t get_qntd_levels()
+        {
+            return levels.size();
         }
 
 

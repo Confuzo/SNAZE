@@ -58,11 +58,20 @@ struct State{
 class Snake
 {
     public:
-      Snake(Pos p) : head("\u25CF"), score(0), lives(5), state(State::ALIVE) {
+      Snake(Pos p) : head("\u25C8"), score(0), lives(5), state(State::ALIVE) {
         snk.push_back(p);
       };
+      Snake() : snk(0), head("\u25C8"), score(0), lives(5), state(State::ALIVE) { };
       virtual ~Snake(){};
-      Snake();
+      Snake & operator= ( Snake & rhs )
+      {
+          snk = rhs.get_snk();
+          head = rhs.get_head();
+          score = rhs.get_score();
+          lives = rhs.get_lives();
+          state = rhs.get_state();
+          return *(this);
+      }
 
       /*Snake operator =(const Snake & s){
         Snake snk;
@@ -121,6 +130,33 @@ class Snake
                 std::cout << begin->linha << begin->coluna << ".";
                 begin++;
             }
+        }
+        std::string get_head()
+        {
+            return head;
+        }
+        int get_score()
+        {
+            return score;
+        }
+        int get_lives()
+        {
+            return lives;
+        }
+        State get_state()
+        {
+            return state;
+        }
+        void kill()
+        {
+          snk.clear();
+          --lives;
+          state.status = State::code_t::DEAD;
+        }
+        void live(Pos pos)
+        {
+          state.status = State::code_t::ALIVE;
+          snk.push_front(pos);
         }
 
     private:

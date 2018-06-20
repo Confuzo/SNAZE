@@ -6,6 +6,7 @@
 #include <cassert>
 #include "level.h"
 #include "player.h"
+#include "snake_game.h"
 #include <unistd.h>
 
 int main(int argc, char const *argv[])
@@ -88,6 +89,11 @@ int main(int argc, char const *argv[])
 
     //Level l( );
     char cab = '*';
+    SnakeGame snk_game(arquivo, dimensoes, cab);
+    snk_game.update();
+    //snk_game.initialize_game ( arquivo, dimensoes, cab );
+
+    /*
     Level l( arquivo, dimensoes, cab);
     l.print_atual();
     l.prox_lvl();
@@ -212,6 +218,6 @@ int main(int argc, char const *argv[])
 
     //l.print();
 
-
+*/
     return 0;
 }

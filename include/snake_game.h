@@ -10,19 +10,157 @@
 */
 
 #include <iostream>
+#include <unistd.h>
+#include <vector>
 
 class SnakeGame
 {
     public:
-        initialize_game();
-        update();
-        process_events();
-        render();
-        game_over();
+        SnakeGame( std::vector<std::string> arquivo, std::vector<int> dimensoes, char cab )
+        {
+            initialize_game(arquivo, dimensoes, cab);
+        };
+        void initialize_game( std::vector<std::string> arquivo, std::vector<int> dimensoes, char cab )
+        {
+            level.load(arquivo, dimensoes, cab );
+            Snake a(level.get_pos_cab());
+            snake = a;
+            auto aux = snake.get_snk();
+            for(auto it = aux.begin(); it != aux.end();it++){
+                Pos &b = *it;
+                std::cout << b << "\n";
+            }
+            Player player(snake);
+            player = p;
+            qntd_levels = level.get_qntd_levels();
+
+            
+        };
+        void update()
+        {
+            while (level.qntd_macas_restates() == 5)
+            {
+                bool sol = p.find_solution(level, snake.get_pos_head(), snake);
+                if (sol == true)
+                {
+                    p.print_path();
+                    auto path = p.get_path();
+                    std::cout << "\n "<< level.get_pos_maca()<< "\n";
+
+                    auto tabela (level.get_tabela());
+                    render(tabela);
+                    for (auto first (path.begin()) ; first < path.end(); ++first)
+                    {
+                        if (*first != level.get_pos_maca())
+                        {
+                            snake.mover(*first);            
+                        }        
+                        else
+                            snake.comer(*first);
+                        render(tabela);
+                        usleep(100000u);
+                    }
+                    level.dec_macas();
+                    //a.print();
+                    std::cout << "QUANTIDADE DE MAÇÃS: "<< level.qntd_macas_restates()<< std::endl;
+                }
+                else{
+                    snake.kill();
+                    snake.live(snake.get_pos_head());
+                }
+            }
+            if (not game_over() == true)
+            {
+                update2();                
+            }
+        }
+        void update2()
+        {
+            auto pos_cab_bkp = level.get_pos_cab();
+            while (level.qntd_macas_restates() > 0 and snake.get_lives() > 0 )
+            {
+                std::cout << "QUANTIDADE DE MAÇÃS: "<< level.qntd_macas_restates()<< std::endl;
+                usleep(100000u);
+
+                level.set_pos_cab( level.get_pos_maca() );
+                level.gerar_maca(snake);
+
+                //Snake a(l.get_pos_cab());
+                auto aux1 = snake.get_snk();
+                for(auto it = aux1.begin(); it != aux1.end();it++){
+                    Pos &b = *it;
+                    std::cout << b << "\n";
+                }
+
+                //Player p2(snake);
+                p.clear_path();
+                p.set_snk_aux(snake);
+
+                bool sol = p.find_solution(level, snake.get_pos_head(), snake);
+                if (sol == true)
+                {
+                    p.print_path();
+                    auto path2 = p.get_path();
+                    path2.pop_front();
+                    std::cout << "\n "<< level.get_pos_maca()<< "\n";
+
+                    auto tabela1 (level.get_tabela());
+                    render(tabela1);
+                    for (auto first (path2.begin()) ; first < path2.end(); ++first)
+                    {
+                        if (*first != level.get_pos_maca())
+                        {
+                            snake.mover(*first);            
+                        }
+                        else
+                            snake.comer(*first);
+                        render(tabela1);
+                        usleep(100000u);
+                    }
+                    level.dec_macas();
+                }
+                else
+                {
+                   snake.kill();
+                   snake.live(pos_cab_bkp);
+                }
+            }
+        }
+        //process_events();
+        void render( std::vector<std::string> tabela )
+        {
+            for (auto i(0u); i<level.get_linhas() ;++i)
+            {
+                for (auto j(0u); j<level.get_colunas() ;++j)
+                    {
+                        Pos p_aux(i,j) ;
+                        if (snake.ocupado_snk(p_aux) == true)
+                        {
+                            if (snake.get_pos_head().linha == i and snake.get_pos_head().coluna == j )
+                            {
+                                std::cout << snake.get_head();
+                            }
+                            else
+                                std::cout << "\u25C7";
+                        }
+                        else if (level.is_maca(p_aux))
+                        {
+                            std::cout << 'F';
+                        }
+                        else
+                            std::cout << tabela[i][j];
+                    }
+                    std::cout << std::endl;
+            }
+        }
+        bool game_over()
+        {
+            return (snake.get_lives() == 0);
+        }
 
     private:
         Level level;
         Snake snake;
-        Player player;
+        Player p;
         unsigned int qntd_levels;
-}
+};

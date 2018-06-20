@@ -28,6 +28,16 @@ class Player
     public:
         Player(Snake aux): snk_aux(aux){};
         ~Player( ) = default;
+        Player()
+        {        
+        };
+        Player & operator= ( Player & rhs )
+        {
+            path = rhs.get_path();
+            Snake aux = rhs.get_snk_aux();
+            snk_aux = aux;
+            return *(this);
+        }
         bool find_solution(Level lvl, Pos initial_pos, Snake snk){
           if(lvl.is_maca(initial_pos)){
               path.push_front(initial_pos);
@@ -80,6 +90,18 @@ class Player
         std::deque<Pos> get_path()
         {
           return path;
+        }
+        Snake get_snk_aux()
+        {
+          return snk_aux;
+        }
+        void set_snk_aux( Snake snk)
+        {
+          snk_aux = snk;
+        }
+        void clear_path()
+        {
+          path.clear();
         }
     private:
     std::deque<Pos> path;
