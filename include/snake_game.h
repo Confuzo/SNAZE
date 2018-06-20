@@ -23,23 +23,24 @@ class SnakeGame
         void initialize_game( std::vector<std::string> arquivo, std::vector<int> dimensoes, char cab )
         {
             level.load(arquivo, dimensoes, cab );
-            Snake a(level.get_pos_cab());
-            snake = a;
-            auto aux = snake.get_snk();
-            for(auto it = aux.begin(); it != aux.end();it++){
-                Pos &b = *it;
-                std::cout << b << "\n";
-            }
-            Player player(snake);
-            player = p;
-            qntd_levels = level.get_qntd_levels();
-
+            level.print();
 
         };
         void update()
         {
+            auto vida ( snake.get_lives() );
+            Snake a(level.get_pos_cab());
+            //level.print_atual();
+            //usleep(1000000u);
+            snake = a;
+            snake.set_lives(vida);
+            auto aux = snake.get_snk();
+            Player player(snake);
+            player = p;
+            qntd_levels = level.get_qntd_levels();
             while (level.qntd_macas_restates() == 5)
             {
+                p.clear_path();
                 bool sol = p.find_solution(level, snake.get_pos_head(), snake);
                 if (sol == true)
                 {
@@ -85,14 +86,6 @@ class SnakeGame
                 level.set_pos_cab( level.get_pos_maca() );
                 level.gerar_maca(snake);
 
-                //Snake a(l.get_pos_cab());
-                /*auto aux1 = snake.get_snk();
-                for(auto it = aux1.begin(); it != aux1.end();it++){
-                    Pos &b = *it;
-                    std::cout << b << "\n";
-                }*/
-
-                //Player p2(snake);
                 p.clear_path();
                 p.set_snk_aux(snake);
 
@@ -126,7 +119,7 @@ class SnakeGame
                 }
             }
             render(level.get_tabela());
-          //  level.prox_lvl();
+            level.prox_lvl();
         }
         //process_events();
         void render( std::vector<std::string> tabela )

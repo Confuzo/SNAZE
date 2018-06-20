@@ -78,7 +78,7 @@ int main(int argc, char const *argv[])
 
     for (auto i (0u); i < dimensoes.size()-2; i+=2)
     {
-        rm+=+dimensoes[0];
+        rm+=+dimensoes[i];
         arquivo.erase(arquivo.begin()+rm);
     }
     /*

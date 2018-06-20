@@ -143,6 +143,10 @@ class Snake
         {
             return lives;
         }
+        void set_lives(int l)
+        {
+            lives = l;
+        }
         State get_state()
         {
             return state;
