@@ -126,7 +126,7 @@ class SnakeGame
                 }
             }
             render(level.get_tabela());
-            level.prox_lvl();
+          //  level.prox_lvl();
         }
         //process_events();
         void render( std::vector<std::string> tabela )
