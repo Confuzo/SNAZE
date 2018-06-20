@@ -64,16 +64,23 @@ class Snake
       virtual ~Snake(){};
 
         size_t size () const{
-          return snk.size();
+            return snk.size();
         }
         Pos get_pos_head ( void ){
-          return snk.front();
+            return snk.front();
         }
         std::deque < Pos > get_snk( ) const{
-          return snk;
+            return snk;
+        }
+        void set_snk( std::deque<Pos> & s )
+        {
+            snk = s;
         }
 
-        void set_simb_cab ( std::string cab );
+        void set_simb_cab ( std::string cab )
+        {
+            head = cab;
+        }
 
         //Verifica se para a cobra ocupa uma determinada posição
         bool ocupado_snk( const Pos & pos ){

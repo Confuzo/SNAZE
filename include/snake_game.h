@@ -10,19 +10,22 @@
 */
 
 #include <iostream>
+#include "player.h"
+#include "snake.h"
+#include "level.h"
 
 class SnakeGame
 {
     public:
-        initialize_game();
-        update();
-        process_events();
-        render();
-        game_over();
+        //initialize_game();
+        //update();
+        //process_events();
+        //render();
+        //game_over();
 
     private:
         Level level;
         Snake snake;
         Player player;
         unsigned int qntd_levels;
-}
+};

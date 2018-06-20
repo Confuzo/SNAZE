@@ -89,18 +89,47 @@ int main(int argc, char const *argv[])
     char cab = '*';
     Level l( arquivo, dimensoes, cab);
     l.print_atual();
-    l.prox_lvl();
-    l.print_atual();
-    l.prox_lvl();
-    l.print_atual();
-    l.prox_lvl();
-    l.print_atual();
+    //l.prox_lvl();
+    //l.print_atual();
+    //l.prox_lvl();
+    //l.print_atual();
+    //l.prox_lvl();
+    //l.print_atual();
     Snake a(l.get_pos_cab());
-    auto aux = a.get_snk();
-    for(auto it = aux.begin(); it != aux.end();it++){
-        Pos &b = *it;
-        std::cout << b << "\n";
+    std::cout << l.get_pos_maca()<<std::endl;
+    //auto aux = a.get_snk();
+    //for(auto it = aux.begin(); it != aux.end();it++){
+        //Pos &b = *it;
+      //  std::cout << b << "\n";
+    //}
+    auto tabela (l.get_tabela());
+    auto aux ( l.get_pos_cab() );
+    aux.linha -= 1;
+    l.set_pos_maca(aux);
+    std::cout << l.get_pos_maca()<<std::endl;
+    std::cout << l.get_pos_cab()<<std::endl;
+    for (auto i(0u); i<l.get_linhas() ;++i)
+    {
+        for (auto j(0u); j<l.get_colunas() ;++j)
+        {
+            Pos p(i,j) ;
+            if (a.ocupado_snk(p) == true)
+            {
+                std::cout << '*';
+            }
+            else if (l.is_maca(p))
+            {
+                std::cout << 'F';
+            }
+            else
+                std::cout << tabela[i][j];
+        }
+        std::cout << std::endl;
+
     }
+    Player p(l, a);
+    std::cout << p.find_solution(l.get_pos_cab());
+    std::cout << p.find_solution(l.get_pos_cab());
     //l.print();
 
 

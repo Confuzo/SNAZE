@@ -137,7 +137,8 @@ class Level
             {
                 linha = rand()%(levels[0].qntd_linhas - 1) + 0;
                 coluna = rand()%(levels[0].qntd_colunas - 1) + 0;
-                block = bloqueado(linha, coluna);
+                Pos aux (linha, coluna);
+                block = bloqueado(linha, coluna) or ( aux == levels[0].snk_cab );
             }
             maca.linha = linha;
             maca.coluna = coluna;
@@ -145,11 +146,13 @@ class Level
         }
         bool bloqueado(size_t linha, size_t coluna)
         {
-            Pos snake(linha, coluna);
-            if (levels[0].tab_lvl[linha][coluna] == '#' or levels[0].tab_lvl[linha][coluna] == '*'
-                or levels[0].tab_lvl[linha][coluna] == '.' )
+            if (levels[0].tab_lvl[linha][coluna] == '#' or levels[0].tab_lvl[linha][coluna] == '.' )
                 return true;
             return false;
+        }
+        bool solucao( Pos p)
+        {
+            return p == maca ;
         }
 
         /*
@@ -184,6 +187,14 @@ class Level
         Pos get_pos_cab()
         {
             return levels[0].snk_cab;
+        }
+        void set_pos_cab(const Pos & p_ )
+        {
+            levels[0].snk_cab = p_;
+        }
+        void set_pos_maca(const Pos & p_ )
+        {
+            maca = p_;
         }
 
         bool is_marked(Pos pos){
@@ -221,6 +232,21 @@ class Level
         void dec_macas ( void )
         {
             levels[0].qntd_macas -= 1;
+        }
+
+        size_t get_linhas()
+        {
+            return levels[0].qntd_linhas;
+        }
+
+        size_t get_colunas()
+        {
+            return levels[0].qntd_colunas;
+        }
+
+        std::vector<std::string> get_tabela()
+        {
+            return levels[0].tab_lvl;
         }
 
 
