@@ -276,6 +276,11 @@ class Level
           return levels.size();
         }
 
+        int get_atual_level()
+        {
+            return atual_level;
+        }
+
 
     private:
         struct level_data

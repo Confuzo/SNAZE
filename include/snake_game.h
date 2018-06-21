@@ -34,7 +34,7 @@ class SnakeGame
 
         };
         void update(){
-            while (level.qntd_macas_restates() > 0)
+            while (level.qntd_macas_restates() > 0 and snake.get_lives() > 0 )
             {
                 usleep(100000u);
                 level.clean_marks();
@@ -75,6 +75,13 @@ class SnakeGame
             usleep(100000u);
             if(level.size() > 1){
                 level.prox_lvl();
+                std::cout << "PPPPPPPPPPPPPPP LEVEL";
+                usleep(1000000u);
+                Snake a(level.get_pos_cab());
+                a.set_lives(snake.get_lives());
+                snake = a;
+                Player player(snake);
+                --qntd_levels;
             }else{
               snake.win();
             }
@@ -138,6 +145,7 @@ class SnakeGame
         void render( std::vector<std::string> tabela )
         {
             std::cout << "\033[2J\033[1;1H";
+            std::cout << "Level: "<< level.get_atual_level()<< std::endl;
             std::cout << "QUANTIDADE DE MAÇÃS: "<< level.qntd_macas_restates()<< std::endl;
             std::cout << "QUANTIDADE DE VIDAS: "<< snake.get_lives() <<std::endl;
             for (auto i(0u); i<level.get_linhas() ;++i)
@@ -176,4 +184,5 @@ class SnakeGame
         Player p;
         unsigned int qntd_levels;
         int qntd_macas;
+        int vida;
 };
