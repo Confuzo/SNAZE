@@ -58,10 +58,10 @@ struct State{
 class Snake
 {
     public:
-      Snake(Pos p) : head("\u25C8"), score(0), lives(3), state(State::ALIVE) {
+      Snake(Pos p) : head("\u25C8"), score(0), lives(5), state(State::ALIVE) {
         snk.push_back(p);
       };
-      Snake() : snk(0), head("\u25C8"), score(0), lives(3), state(State::ALIVE) { };
+      Snake() : snk(0), head("\u25C8"), score(0), lives(5), state(State::ALIVE) { };
       virtual ~Snake(){};
       Snake & operator= ( Snake & rhs )
       {
