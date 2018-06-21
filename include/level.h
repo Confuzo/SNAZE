@@ -229,6 +229,10 @@ class Level
             marks.push_back(pos);
         }
 
+        void clean_marks(){
+          marks.clear();
+        }
+
         /*
          *
          * @brief Método para obter quantidade de maçãs restantes no level atual
@@ -266,6 +270,10 @@ class Level
         size_t get_qntd_levels()
         {
             return levels.size();
+        }
+
+        size_t size () const{
+          return levels.size();
         }
 
 

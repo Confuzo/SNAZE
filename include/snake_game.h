@@ -24,22 +24,20 @@ class SnakeGame
         {
             level.load(arquivo, dimensoes, cab );
             level.print();
+            Snake a(level.get_pos_cab());
+          //level.print_atual();
+          //usleep(1000000u);
+            snake = a;
+            Player player(snake);
+            qntd_levels = level.get_qntd_levels();
+            qntd_macas = 5;
 
         };
-        void update()
-        {
-            auto vida ( snake.get_lives() );
-            Snake a(level.get_pos_cab());
-            //level.print_atual();
-            //usleep(1000000u);
-            snake = a;
-            snake.set_lives(vida);
-            auto aux = snake.get_snk();
-            Player player(snake);
-            player = p;
-            qntd_levels = level.get_qntd_levels();
-            while (level.qntd_macas_restates() == 5)
+        void update(){
+            while (level.qntd_macas_restates() > 0)
             {
+                usleep(100000u);
+                level.clean_marks();
                 p.clear_path();
                 bool sol = p.find_solution(level, snake.get_pos_head(), snake);
                 if (sol == true)
@@ -62,18 +60,32 @@ class SnakeGame
                         usleep(100000u);
                     }
                     level.dec_macas();
+                    if(level.qntd_macas_restates() > 0){
+                        level.gerar_maca();
+                    }
                     //a.print();
-                    std::cout << "QUANTIDADE DE MAÇÃS: "<< level.qntd_macas_restates()<< std::endl;
+                    //std::cout << "QUANTIDADE DE MAÇÃS: "<< level.qntd_macas_restates()<< std::endl;
                 }
                 else{
                     snake.kill();
                     snake.live(snake.get_pos_head());
                 }
             }
+            render(level.get_tabela());
+            usleep(100000u);
+            if(level.size() > 1){
+                level.prox_lvl();
+            }else{
+              snake.win();
+            }
+            /*
             if (not game_over() == true)
             {
+                qntd_levels--;
+                std::cout<< "RODOU NO UPDATE2\n";
+                usleep(1000000u);
                 update2();
-            }
+            }*/
         }
         void update2()
         {
@@ -86,6 +98,7 @@ class SnakeGame
                 level.set_pos_cab( level.get_pos_maca() );
                 level.gerar_maca(snake);
 
+                level.clean_marks();
                 p.clear_path();
                 p.set_snk_aux(snake);
 
@@ -143,7 +156,7 @@ class SnakeGame
                         }
                         else if (level.is_maca(p_aux))
                         {
-                            std::cout << 'F';
+                            std::cout << "\u2605";
                         }
                         else
                             std::cout << tabela[i][j];
@@ -153,7 +166,8 @@ class SnakeGame
         }
         bool game_over()
         {
-            return (snake.get_lives() == 0);
+          auto aux = snake.get_state();
+          return (snake.get_lives() == 0 or aux.status == State::WIN);
         }
 
     private:
@@ -161,4 +175,5 @@ class SnakeGame
         Snake snake;
         Player p;
         unsigned int qntd_levels;
+        int qntd_macas;
 };

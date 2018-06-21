@@ -7,6 +7,7 @@
 #include "level.h"
 #include "player.h"
 #include "snake_game.h"
+#include "snake.h"
 #include <unistd.h>
 
 int main(int argc, char const *argv[])
@@ -93,6 +94,11 @@ int main(int argc, char const *argv[])
     while(not snk_game.game_over()){
         snk_game.update();
     }
+    std::cout << "VOCÊ(IA) VENCEU!!!! PARABÉNS!!!!!!";
+    /*for(auto i=0u; i<dimensoes.size(); i++){
+      std::cout << dimensoes[i];
+      std::cout << "\n";
+    }*/
     //snk_game.initialize_game ( arquivo, dimensoes, cab );
 
     /*

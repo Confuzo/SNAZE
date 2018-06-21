@@ -163,6 +163,10 @@ class Snake
           snk.push_front(pos);
         }
 
+        void win(){
+          state.status = State::code_t::WIN;
+        }
+
     private:
         std::deque<Pos>snk;         //!< Corpo completo da cobra
         std::string head;           //!< Simbolo que representa a cabeça da cobra
