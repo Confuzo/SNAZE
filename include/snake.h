@@ -58,10 +58,10 @@ struct State{
 class Snake
 {
     public:
-      Snake(Pos p) : head("\u25C8"), score(0), lives(10), state(State::ALIVE) {
+      Snake(Pos p) : head("\u25C8"), score(0), lives(3), state(State::ALIVE) {
         snk.push_back(p);
       };
-      Snake() : snk(0), head("\u25C8"), score(0), lives(10), state(State::ALIVE) { };
+      Snake() : snk(0), head("\u25C8"), score(0), lives(3), state(State::ALIVE) { };
       virtual ~Snake(){};
       Snake & operator= ( Snake & rhs )
       {
@@ -92,7 +92,9 @@ class Snake
           return snk;
         }
 
-        void set_simb_cab ( std::string cab );
+        void set_simb_cab ( std::string cab ){
+          head = cab;
+        }
 
         //Verifica se para a cobra ocupa uma determinada posição
         bool ocupado_snk( const Pos & pos ){
@@ -165,6 +167,10 @@ class Snake
 
         void win(){
           state.status = State::code_t::WIN;
+        }
+
+        void dead(){
+          state.status = State::code_t::DEAD;
         }
 
     private:

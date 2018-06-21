@@ -94,7 +94,6 @@ int main(int argc, char const *argv[])
     while(not snk_game.game_over()){
         snk_game.update();
     }
-    std::cout << "VOCÊ(IA) VENCEU!!!! PARABÉNS!!!!!!";
     /*for(auto i=0u; i<dimensoes.size(); i++){
       std::cout << dimensoes[i];
       std::cout << "\n";

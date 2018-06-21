@@ -67,23 +67,35 @@ class SnakeGame
                     //std::cout << "QUANTIDADE DE MAÇÃS: "<< level.qntd_macas_restates()<< std::endl;
                 }
                 else{
+                    snake.set_simb_cab("\u2620");
+                    render(level.get_tabela());
+                    std::cout << "Não há mais caminhos pra snaze seguir... Ela perdeu uma vida\n";
+                    usleep(1000000u);
                     snake.kill();
                     snake.live(snake.get_pos_head());
+                    snake.set_simb_cab("\u25C8");
                 }
             }
-            render(level.get_tabela());
-            usleep(100000u);
-            if(level.size() > 1){
+            /*render(level.get_tabela());
+            usleep(100000u);*/
+            if(level.size() > 1 and snake.get_lives() > 0){
+                render(level.get_tabela());
+                usleep(100000u);
                 level.prox_lvl();
-                std::cout << "PPPPPPPPPPPPPPP LEVEL";
-                usleep(1000000u);
+                //usleep(1000000u);
                 Snake a(level.get_pos_cab());
                 a.set_lives(snake.get_lives());
                 snake = a;
                 Player player(snake);
                 --qntd_levels;
             }else{
-              snake.win();
+              if(snake.get_lives() > 0){
+                  snake.win();
+              }else{
+                snake.dead();
+                snake.set_simb_cab("\u2620");
+                render(level.get_tabela());
+              }
             }
             /*
             if (not game_over() == true)
@@ -134,6 +146,10 @@ class SnakeGame
                 }
                 else
                 {
+                    auto aux = true;
+                    while(aux){
+
+                    }
                    snake.kill();
                    snake.live(pos_cab_bkp);
                 }
@@ -175,7 +191,15 @@ class SnakeGame
         bool game_over()
         {
           auto aux = snake.get_state();
-          return (snake.get_lives() == 0 or aux.status == State::WIN);
+          if(snake.get_lives() == 0 and aux.status == State::WIN){
+            std::cout << "PARABÉNS!!! Você(IA) venceu!!!!\n";
+            return true;
+          }
+          if(aux.status == State::DEAD){
+            std::cout << "Você perdeu, tente de novo!!!\n";
+            return true;
+          }
+          return false;
         }
 
     private:
