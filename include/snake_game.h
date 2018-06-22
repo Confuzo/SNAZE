@@ -70,7 +70,7 @@ class SnakeGame
                     snake.set_simb_cab("\u2620");
                     render(level.get_tabela());
                     std::cout << "Não há mais caminhos pra snaze seguir... Ela perdeu uma vida\n";
-                    usleep(1000000u);
+                    usleep(2000000u);
                     snake.kill();
                     snake.live(snake.get_pos_head());
                     snake.set_simb_cab("\u25C8");
@@ -80,7 +80,7 @@ class SnakeGame
             usleep(100000u);*/
             if(level.size() > 1 and snake.get_lives() > 0){
                 render(level.get_tabela());
-                usleep(100000u);
+                usleep(2000000u);
                 level.prox_lvl();
                 //usleep(1000000u);
                 Snake a(level.get_pos_cab());
@@ -191,7 +191,8 @@ class SnakeGame
         bool game_over()
         {
           auto aux = snake.get_state();
-          if(snake.get_lives() == 0 and aux.status == State::WIN){
+          if(snake.get_lives() >= 0 and aux.status == State::WIN){
+            render(level.get_tabela());
             std::cout << "PARABÉNS!!! Você(IA) venceu!!!!\n";
             return true;
           }
